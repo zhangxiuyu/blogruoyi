@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysArticleLabelMapper">
+    
+    <resultMap type="SysArticleLabel" id="SysArticleLabelResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+    </resultMap>
+
+    <sql id="selectSysArticleLabelVo">
+        select id, title from sys_article_label
+    </sql>
+
+    <select id="selectSysArticleLabelList" parameterType="SysArticleLabel" resultMap="SysArticleLabelResult">
+        <include refid="selectSysArticleLabelVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysArticleLabelById" parameterType="String" resultMap="SysArticleLabelResult">
+        <include refid="selectSysArticleLabelVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysArticleLabel" parameterType="SysArticleLabel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_article_label
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysArticleLabel" parameterType="SysArticleLabel">
+        update sys_article_label
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysArticleLabelById" parameterType="String">
+        delete from sys_article_label where id = #{id}
+    </delete>
+
+    <delete id="deleteSysArticleLabelByIds" parameterType="String">
+        delete from sys_article_label where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysArticleOnLabelMapper">
+    
+    <resultMap type="SysArticleOnLabel" id="SysArticleOnLabelResult">
+        <result property="id"    column="id"    />
+        <result property="labelId"    column="label_id"    />
+        <result property="articleId"    column="article_id"    />
+    </resultMap>
+
+    <sql id="selectSysArticleOnLabelVo">
+        select id, label_id, article_id from sys_article_on_label
+    </sql>
+
+    <select id="selectSysArticleOnLabelList" parameterType="SysArticleOnLabel" resultMap="SysArticleOnLabelResult">
+        <include refid="selectSysArticleOnLabelVo"/>
+        <where>  
+            <if test="labelId != null "> and label_id = #{labelId}</if>
+            <if test="articleId != null "> and article_id = #{articleId}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysArticleOnLabelById" parameterType="String" resultMap="SysArticleOnLabelResult">
+        <include refid="selectSysArticleOnLabelVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysArticleOnLabel" parameterType="SysArticleOnLabel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_article_on_label
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="labelId != null">label_id,</if>
+            <if test="articleId != null">article_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="labelId != null">#{labelId},</if>
+            <if test="articleId != null">#{articleId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysArticleOnLabel" parameterType="SysArticleOnLabel">
+        update sys_article_on_label
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="labelId != null">label_id = #{labelId},</if>
+            <if test="articleId != null">article_id = #{articleId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysArticleOnLabelById" parameterType="String">
+        delete from sys_article_on_label where id = #{id}
+    </delete>
+
+    <delete id="deleteSysArticleOnLabelByIds" parameterType="String">
+        delete from sys_article_on_label where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
