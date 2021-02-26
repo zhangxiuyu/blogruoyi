@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.SysArticleType;
  * 文章分类Mapper接口
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 public interface SysArticleTypeMapper 
 {

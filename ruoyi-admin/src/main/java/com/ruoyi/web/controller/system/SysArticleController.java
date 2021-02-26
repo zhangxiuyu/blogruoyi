@@ -1,6 +1,11 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.SysArticleLabel;
+import com.ruoyi.system.domain.SysArticleType;
+import com.ruoyi.system.service.ISysArticleLabelService;
+import com.ruoyi.system.service.ISysArticleTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +28,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * 文章Controller
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 @Controller
 @RequestMapping("/system/article")
@@ -33,6 +38,12 @@ public class SysArticleController extends BaseController
 
     @Autowired
     private ISysArticleService sysArticleService;
+
+    @Autowired
+    private ISysArticleTypeService sysArticleTypeService;
+
+    @Autowired
+    private ISysArticleLabelService sysArticleLabelService;
 
     @RequiresPermissions("system:article:view")
     @GetMapping()
@@ -72,8 +83,16 @@ public class SysArticleController extends BaseController
      * 新增文章
      */
     @GetMapping("/add")
-    public String add()
+    public String add(ModelMap mmap,SysArticleType sysArticleType,SysArticleLabel sysArticleLabel)
     {
+        // 类型
+        List<SysArticleType> typeList = sysArticleTypeService.selectSysArticleTypeList(sysArticleType);
+        // 标签
+        List<SysArticleLabel> labelList = sysArticleLabelService.selectSysArticleLabelList(sysArticleLabel);
+
+        mmap.put("sysArticleType", typeList);
+        mmap.put("sysArticleLabel", labelList);
+
         return prefix + "/add";
     }
 
@@ -93,10 +112,23 @@ public class SysArticleController extends BaseController
      * 修改文章
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") String id, ModelMap mmap)
+    public String edit(@PathVariable("id") Integer id, ModelMap mmap,SysArticleType sysArticleType,SysArticleLabel sysArticleLabel)
     {
         SysArticle sysArticle = sysArticleService.selectSysArticleById(id);
+
+        // 类型
+        List<SysArticleType> typeList = sysArticleTypeService.selectSysArticleTypeList(sysArticleType);
+        // 标签
+        List<SysArticleLabel> labelList = sysArticleLabelService.selectSysArticleLabelList(sysArticleLabel);
+
         mmap.put("sysArticle", sysArticle);
+        mmap.put("sysArticleType", typeList);
+        mmap.put("sysArticleLabel", labelList);
+
+
+        System.out.print(mmap);
+
+
         return prefix + "/edit";
     }
 

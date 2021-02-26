@@ -17,7 +17,7 @@ public interface ISysArticleService
      * @param id 文章ID
      * @return 文章
      */
-    public SysArticle selectSysArticleById(String id);
+    public SysArticle selectSysArticleById(Integer id);
 
     /**
      * 查询文章列表
@@ -58,4 +58,6 @@ public interface ISysArticleService
      * @return 结果
      */
     public int deleteSysArticleById(String id);
+
+    int deleteSysArticleById(Integer id);
 }

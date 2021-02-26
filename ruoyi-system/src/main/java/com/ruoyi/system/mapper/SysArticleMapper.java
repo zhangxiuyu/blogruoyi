@@ -7,7 +7,7 @@ import com.ruoyi.system.domain.SysArticle;
  * 文章Mapper接口
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 public interface SysArticleMapper 
 {
@@ -17,7 +17,7 @@ public interface SysArticleMapper
      * @param id 文章ID
      * @return 文章
      */
-    public SysArticle selectSysArticleById(String id);
+    public SysArticle selectSysArticleById(Integer id);
 
     /**
      * 查询文章列表
@@ -49,7 +49,7 @@ public interface SysArticleMapper
      * @param id 文章ID
      * @return 结果
      */
-    public int deleteSysArticleById(String id);
+    public int deleteSysArticleById(Integer id);
 
     /**
      * 批量删除文章

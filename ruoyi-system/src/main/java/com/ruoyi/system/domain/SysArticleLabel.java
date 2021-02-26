@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 文章标签对象 sys_article_label
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 public class SysArticleLabel extends BaseEntity
 {

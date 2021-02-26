@@ -24,11 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectSysArticleList" parameterType="SysArticle" resultMap="SysArticleResult">
         <include refid="selectSysArticleVo"/>
         <where>  
-            <if test="title != null  and title != ''"> and title = #{title}</if>
-            <if test="brief != null  and brief != ''"> and brief = #{brief}</if>
-            <if test="con != null  and con != ''"> and con = #{con}</if>
-            <if test="createdAt != null "> and created_at = #{createdAt}</if>
-            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+            <if test="title != null  and title != ''"> and title like concat('%', #{title}, '%')</if>
+            <if test="brief != null  and brief != ''"> and brief like concat('%', #{brief}, '%')</if>
+            <if test="con != null  and con != ''"> and con like concat('%', #{con}, '%')</if>
+            <if test="params.beginCreatedAt != null and params.beginCreatedAt != '' and params.endCreatedAt != null and params.endCreatedAt != ''"> and created_at between #{params.beginCreatedAt} and #{params.endCreatedAt}</if>
+            <if test="params.beginUpdatedAt != null and params.beginUpdatedAt != '' and params.endUpdatedAt != null and params.endUpdatedAt != ''"> and updated_at between #{params.beginUpdatedAt} and #{params.endUpdatedAt}</if>
             <if test="top != null "> and top = #{top}</if>
             <if test="state != null "> and state = #{state}</if>
             <if test="showNum != null "> and show_num = #{showNum}</if>
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectSysArticleById" parameterType="String" resultMap="SysArticleResult">
+    <select id="selectSysArticleById" parameterType="Integer" resultMap="SysArticleResult">
         <include refid="selectSysArticleVo"/>
         where id = #{id}
     </select>
@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-    <delete id="deleteSysArticleById" parameterType="String">
+    <delete id="deleteSysArticleById" parameterType="Integer">
         delete from sys_article where id = #{id}
     </delete>
 

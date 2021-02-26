@@ -9,7 +9,7 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 文章分类对象 sys_article_type
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 public class SysArticleType extends BaseEntity
 {

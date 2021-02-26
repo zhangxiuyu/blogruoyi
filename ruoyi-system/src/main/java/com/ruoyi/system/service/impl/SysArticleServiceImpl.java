@@ -12,7 +12,7 @@ import com.ruoyi.common.core.text.Convert;
  * 文章Service业务层处理
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 @Service
 public class SysArticleServiceImpl implements ISysArticleService 
@@ -27,7 +27,7 @@ public class SysArticleServiceImpl implements ISysArticleService
      * @return 文章
      */
     @Override
-    public SysArticle selectSysArticleById(String id)
+    public SysArticle selectSysArticleById(Integer id)
     {
         return sysArticleMapper.selectSysArticleById(id);
     }
@@ -80,6 +80,11 @@ public class SysArticleServiceImpl implements ISysArticleService
         return sysArticleMapper.deleteSysArticleByIds(Convert.toStrArray(ids));
     }
 
+    @Override
+    public int deleteSysArticleById(String id) {
+        return 0;
+    }
+
     /**
      * 删除文章信息
      * 
@@ -87,7 +92,7 @@ public class SysArticleServiceImpl implements ISysArticleService
      * @return 结果
      */
     @Override
-    public int deleteSysArticleById(String id)
+    public int deleteSysArticleById(Integer id)
     {
         return sysArticleMapper.deleteSysArticleById(id);
     }

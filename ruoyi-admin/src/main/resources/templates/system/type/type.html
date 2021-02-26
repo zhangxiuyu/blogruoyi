@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('文章与类型关联列表')" />
+    <th:block th:include="include :: header('文章分类列表')" />
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -11,12 +11,8 @@
                     <div class="select-list">
                         <ul>
                             <li>
-                                <label>分类id：</label>
-                                <input type="text" name="typeId"/>
-                            </li>
-                            <li>
-                                <label>文章id：</label>
-                                <input type="text" name="articleId"/>
+                                <label>标题：</label>
+                                <input type="text" name="title"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -59,22 +55,18 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
-                modalName: "文章与类型关联",
+                modalName: "文章分类",
                 columns: [{
                     checkbox: true
                 },
                 {
                     field: 'id',
-                    title: '主键',
+                    title: '主键id',
                     visible: false
                 },
                 {
-                    field: 'typeId',
-                    title: '分类id'
-                },
-                {
-                    field: 'articleId',
-                    title: '文章id'
+                    field: 'title',
+                    title: '标题'
                 },
                 {
                     title: '操作',

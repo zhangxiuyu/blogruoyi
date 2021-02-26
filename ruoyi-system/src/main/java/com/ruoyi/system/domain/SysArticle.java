@@ -11,14 +11,14 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * 文章对象 sys_article
  * 
  * @author ruoyi
- * @date 2021-02-25
+ * @date 2021-02-26
  */
 public class SysArticle extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 文章id */
-    private String id;
+    private Integer id;
 
     /** 文章标题 */
     @Excel(name = "文章标题")
@@ -42,12 +42,12 @@ public class SysArticle extends BaseEntity
     @Excel(name = "更新时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date updatedAt;
 
-    /** 是否置顶 1 置顶 0 不置顶 */
-    @Excel(name = "是否置顶 1 置顶 0 不置顶")
+    /** 置顶 */
+    @Excel(name = "置顶")
     private Integer top;
 
-    /** 状态 1正常 0下架 */
-    @Excel(name = "状态 1正常 0下架")
+    /** 状态 */
+    @Excel(name = "状态")
     private Integer state;
 
     /** 观看数量 */
@@ -58,12 +58,12 @@ public class SysArticle extends BaseEntity
     @Excel(name = "排序")
     private Long sort;
 
-    public void setId(String id) 
+    public void setId(Integer id) 
     {
         this.id = id;
     }
 
-    public String getId() 
+    public Integer getId() 
     {
         return id;
     }

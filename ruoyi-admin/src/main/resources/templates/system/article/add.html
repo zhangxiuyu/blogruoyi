@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <th:block th:include="include :: header('新增文章')" />
-    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: summernote-css" />
 </head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -19,29 +19,38 @@
                     <input name="brief" class="form-control" type="text">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group">    
                 <label class="col-sm-3 control-label">文章内容：</label>
                 <div class="col-sm-8">
-                    <div name="con" id="eg" class="summernote" th:utext="*{con}">
-
+                    <input type="hidden" class="form-control" name="con">
+                    <div class="summernote" id="con"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">类型：</label>
+                <div class="col-sm-8">
+                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_article_state')}">
+                        <input type="radio" th:id="${'state_' + dict.dictCode}" name="state" th:value="${dict.dictValue}" th:checked="${dict.default}">
+                        <label th:for="${'state_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                     </div>
                 </div>
             </div>
-
             <div class="form-group">    
-
-                <label class="col-sm-3 control-label is-required">是否置顶：</label>
+                <label class="col-sm-3 control-label">置顶：</label>
                 <div class="col-sm-8">
-                    <label class="radio-box"> <input type="radio" name="top" value="0" /> 不置顶 </label>
-                    <label class="radio-box"> <input type="radio" name="top" value="1" /> 置顶 </label>
+                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_article_top')}">
+                        <input type="radio" th:id="${'top_' + dict.dictCode}" name="top" th:value="${dict.dictValue}" th:checked="${dict.default}">
+                        <label th:for="${'top_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">    
-
-                <label class="col-sm-3 control-label is-required">状态：</label>
+                <label class="col-sm-3 control-label">状态：</label>
                 <div class="col-sm-8">
-                    <label class="radio-box"> <input type="radio" name="state" value="0" /> 下架 </label>
-                    <label class="radio-box"> <input type="radio" name="state" value="1" /> 正常 </label>
+                    <div class="radio-box" th:each="dict : ${@dict.getType('sys_article_state')}">
+                        <input type="radio" th:id="${'state_' + dict.dictCode}" name="state" th:value="${dict.dictValue}" th:checked="${dict.default}">
+                        <label th:for="${'state_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">    
@@ -59,7 +68,7 @@
         </form>
     </div>
     <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
+    <th:block th:include="include :: summernote-js" />
     <script th:inline="javascript">
         var prefix = ctx + "system/article"
         $("#form-article-add").validate({
@@ -72,16 +81,39 @@
             }
         }
 
-        $("input[name='createdAt']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
-
-        $("input[name='updatedAt']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
+        $(function() {
+            $('.summernote').summernote({
+                lang: 'zh-CN',
+                callbacks: {
+                    onChange: function(contents, $edittable) {
+                        $("input[name='" + this.id + "']").val(contents);
+                    },
+                    onImageUpload: function(files) {
+                        var obj = this;
+                    	var data = new FormData();
+                    	data.append("file", files[0]);
+                    	$.ajax({
+                            type: "post",
+                            url: ctx + "common/upload",
+                    		data: data,
+                    		cache: false,
+                    		contentType: false,
+                    		processData: false,
+                    		dataType: 'json',
+                    		success: function(result) {
+                    		    if (result.code == web_status.SUCCESS) {
+                    		        $('#' + obj.id).summernote('insertImage', result.url);
+                    		    } else {
+                    		        $.modal.alertError(result.msg);
+                    		    }
+                    		},
+                    		error: function(error) {
+                    		    $.modal.alertWarning("图片上传失败。");
+                    		}
+                    	});
+                    }
+                }
+            });
         });
     </script>
 </body>
