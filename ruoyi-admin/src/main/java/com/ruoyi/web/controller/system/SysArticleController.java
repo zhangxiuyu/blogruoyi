@@ -1,10 +1,13 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.ruoyi.system.domain.SysArticleLabel;
+import com.ruoyi.system.domain.SysArticleOnType;
 import com.ruoyi.system.domain.SysArticleType;
 import com.ruoyi.system.service.ISysArticleLabelService;
+import com.ruoyi.system.service.ISysArticleOnTypeService;
 import com.ruoyi.system.service.ISysArticleTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,8 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 文章Controller
@@ -44,6 +49,11 @@ public class SysArticleController extends BaseController
 
     @Autowired
     private ISysArticleLabelService sysArticleLabelService;
+
+    @Autowired
+    private ISysArticleOnTypeService sysArticleOnTypeService;
+
+
 
     @RequiresPermissions("system:article:view")
     @GetMapping()
@@ -103,9 +113,21 @@ public class SysArticleController extends BaseController
     @Log(title = "文章", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysArticle sysArticle)
+    public AjaxResult addSave(HttpServletRequest request, SysArticle sysArticle, SysArticleOnType sysArticleOnType)
     {
-        return toAjax(sysArticleService.insertSysArticle(sysArticle));
+        String[] types = request.getParameterValues("type");
+        System.out.println(Arrays.toString(types));
+        System.out.println("=========");
+        System.out.println(request.getParameter("label"));
+        System.out.println("=========ID : ==");
+
+        int st = sysArticleService.insertSysArticle(sysArticle);
+
+        // 成功的插入 类型 还有标签
+        if (st == 1){
+            sysArticleOnTypeService.insertAllSysArticleOnType(types,sysArticle.getId());
+        }
+        return toAjax(st);
     }
 
     /**
