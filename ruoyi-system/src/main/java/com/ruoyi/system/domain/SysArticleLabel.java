@@ -18,6 +18,9 @@ public class SysArticleLabel extends BaseEntity
     /** 主键id */
     private String id;
 
+    /** 是否选中  true**/
+    private boolean check_id;
+
     /** 名称 */
     @Excel(name = "名称")
     private String title;
@@ -41,11 +44,20 @@ public class SysArticleLabel extends BaseEntity
         return title;
     }
 
+    public boolean isCheck_id() {
+        return check_id;
+    }
+
+    public void setCheck_id(boolean check_id) {
+        this.check_id = check_id;
+    }
+
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("title", getTitle())
-            .toString();
+        return "SysArticleLabel{" +
+                "id='" + id + '\'' +
+                ", check_id=" + check_id +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

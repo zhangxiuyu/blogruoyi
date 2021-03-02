@@ -2,6 +2,8 @@ package com.ruoyi.system.service;
 
 import com.ruoyi.system.domain.SysArticleOnType;
 
+import java.util.List;
+
 
 public interface ISysArticleOnTypeService {
 
@@ -24,5 +26,9 @@ public interface ISysArticleOnTypeService {
 
 
     public int deleteSysArticleOnTypeByIds(String ids);
+
+
+
+    public List<SysArticleOnType> getSysArticleOnTypeIds(Integer article_id);
 
 }

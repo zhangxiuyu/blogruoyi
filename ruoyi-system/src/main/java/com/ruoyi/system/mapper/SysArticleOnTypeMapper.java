@@ -3,6 +3,8 @@ package com.ruoyi.system.mapper;
 import com.ruoyi.system.domain.SysArticleOnType;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface SysArticleOnTypeMapper {
 
 
@@ -13,4 +15,6 @@ public interface SysArticleOnTypeMapper {
 
 
     public int deleteSysArticleOnTypeByIds(String[] ids);
+
+    public List<SysArticleOnType> getSysArticleOnTypeIds(Integer article_id);
 }

@@ -7,6 +7,8 @@ import com.ruoyi.system.service.ISysArticleOnTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SysArticleOnTypeServiceImpl implements ISysArticleOnTypeService {
 
@@ -44,6 +46,12 @@ public class SysArticleOnTypeServiceImpl implements ISysArticleOnTypeService {
     @Override
     public int deleteSysArticleOnTypeByIds(String ids){
         return sysArticleOnTypeMapper.deleteSysArticleOnTypeByIds(Convert.toStrArray(ids));
+    }
+
+
+    @Override
+    public List<SysArticleOnType> getSysArticleOnTypeIds(Integer article_id){
+        return sysArticleOnTypeMapper.getSysArticleOnTypeIds(article_id);
     }
 
 

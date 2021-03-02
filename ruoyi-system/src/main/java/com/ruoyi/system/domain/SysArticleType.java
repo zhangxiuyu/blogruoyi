@@ -18,6 +18,17 @@ public class SysArticleType extends BaseEntity
     /** 主键id */
     private String id;
 
+    /** 是否选中 **/
+    private boolean check_id;
+
+    public boolean isCheck_id() {
+        return check_id;
+    }
+
+    public void setCheck_id(boolean check_id) {
+        this.check_id = check_id;
+    }
+
     /** 标题 */
     @Excel(name = "标题")
     private String title;
@@ -43,9 +54,10 @@ public class SysArticleType extends BaseEntity
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("title", getTitle())
-            .toString();
+        return "SysArticleType{" +
+                "id='" + id + '\'' +
+                ", check_id=" + check_id +
+                ", title='" + title + '\'' +
+                '}';
     }
 }
