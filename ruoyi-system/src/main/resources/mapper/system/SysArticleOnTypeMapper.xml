@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.system.mapper.SysArticleMapper">
+<mapper namespace="com.ruoyi.system.mapper.SysArticleOnTypeMapper">
 
     <resultMap type="SysArticleOnType" id="SysArticleOnTypeResult">
         <result property="id"    column="id"    />
@@ -25,8 +25,8 @@
 
    <insert id="insertAllSysArticleOnType" parameterType="String">
        insert into sys_article_on_type (type_id,article_id) values
-       <foreach collection="array" item="type_id" open="(" separator="," close=")">
-            #{type_id},#{article_id}
+       <foreach collection="array" item="type_id"  separator="," >
+            (#{type_id},#{article_id})
        </foreach>
    </insert>
 

@@ -1,14 +1,10 @@
 package com.ruoyi.web.controller.system;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.ruoyi.system.domain.SysArticleLabel;
-import com.ruoyi.system.domain.SysArticleOnType;
 import com.ruoyi.system.domain.SysArticleType;
-import com.ruoyi.system.service.ISysArticleLabelService;
-import com.ruoyi.system.service.ISysArticleOnTypeService;
-import com.ruoyi.system.service.ISysArticleTypeService;
+import com.ruoyi.system.service.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.system.domain.SysArticle;
-import com.ruoyi.system.service.ISysArticleService;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
@@ -53,6 +48,9 @@ public class SysArticleController extends BaseController
     @Autowired
     private ISysArticleOnTypeService sysArticleOnTypeService;
 
+
+    @Autowired
+    private ISysArticleOnLabelService sysArticleOnLabelService;
 
 
     @RequiresPermissions("system:article:view")
@@ -113,19 +111,18 @@ public class SysArticleController extends BaseController
     @Log(title = "文章", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(HttpServletRequest request, SysArticle sysArticle, SysArticleOnType sysArticleOnType)
+    public AjaxResult addSave(HttpServletRequest request, SysArticle sysArticle)
     {
         String[] types = request.getParameterValues("type");
-        System.out.println(Arrays.toString(types));
-        System.out.println("=========");
-        System.out.println(request.getParameter("label"));
-        System.out.println("=========ID : ==");
+        String[] labels = request.getParameterValues("label");
 
         int st = sysArticleService.insertSysArticle(sysArticle);
-
         // 成功的插入 类型 还有标签
         if (st == 1){
+            // 类型
             sysArticleOnTypeService.insertAllSysArticleOnType(types,sysArticle.getId());
+            // 标签
+            sysArticleOnLabelService.insertAllSysArticleOnLabel(labels,sysArticle.getId());
         }
         return toAjax(st);
     }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysArticleOnLabelMapper">
+
+    <resultMap type="SysArticleOnLabel" id="SysArticleOnLabelResult">
+        <result property="id"    column="id"    />
+        <result property="label_id"    column="label_id"    />
+        <result property="article_id"    column="article_id"    />
+    </resultMap>
+
+
+    <insert id="insertSysArticleOnLabel" parameterType="SysArticleOnLabel" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_article_on_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="label_id != null">label_id,</if>
+            <if test="article_id != null">article_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="label_id != null">#{label_id},</if>
+            <if test="article_id != null">#{article_id},</if>
+        </trim>
+    </insert>
+
+
+   <insert id="insertAllSysArticleOnLabel" parameterType="String">
+       insert into sys_article_on_label (label_id,article_id) values
+       <foreach collection="array" item="label_id"  separator="," >
+            (#{label_id},#{article_id})
+       </foreach>
+   </insert>
+
+
+</mapper>
