@@ -10,4 +10,7 @@ public interface SysArticleOnTypeMapper {
 
 
     public int insertAllSysArticleOnType(@Param("array") String[] array, @Param("article_id") int article_id);
+
+
+    public int deleteSysArticleOnTypeByIds(String[] ids);
 }

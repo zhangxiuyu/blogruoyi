@@ -22,4 +22,7 @@ public interface ISysArticleOnTypeService {
      */
     public int insertAllSysArticleOnType(String[] array, int article_id);
 
+
+    public int deleteSysArticleOnTypeByIds(String ids);
+
 }

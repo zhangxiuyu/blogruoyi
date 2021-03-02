@@ -22,4 +22,5 @@ public interface ISysArticleOnLabelService {
     public int insertAllSysArticleOnLabel(String[] array, int article_id);
 
 
+    public int deleteSysArticleOnLabelByIds(String ids);
 }

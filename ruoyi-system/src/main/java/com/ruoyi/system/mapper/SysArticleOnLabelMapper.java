@@ -10,4 +10,6 @@ public interface SysArticleOnLabelMapper {
 
 
     public int insertAllSysArticleOnLabel(@Param("array") String[] array, @Param("article_id") int article_id);
+
+    public int deleteSysArticleOnTypeByIds(String[] ids);
 }

@@ -172,6 +172,13 @@ public class SysArticleController extends BaseController
     @ResponseBody
     public AjaxResult remove(String ids)
     {
-        return toAjax(sysArticleService.deleteSysArticleByIds(ids));
+        int st = sysArticleService.deleteSysArticleByIds(ids);
+
+        // 删除成功后， 删除文章与标签 类型关联表数据
+        if (st == 1){
+            sysArticleOnTypeService.deleteSysArticleOnTypeByIds(ids);
+            sysArticleOnLabelService.deleteSysArticleOnLabelByIds(ids);
+        }
+        return toAjax(st);
     }
 }
