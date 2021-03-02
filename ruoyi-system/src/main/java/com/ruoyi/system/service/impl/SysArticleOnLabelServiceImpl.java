@@ -13,6 +13,8 @@ public class SysArticleOnLabelServiceImpl implements ISysArticleOnLabelService {
     @Autowired
     private SysArticleOnLabelMapper sysArticleOnLabelMapper;
 
+
+
     @Override
     public int insertSysArticleOnLabel(SysArticleOnLabel sysArticleOnLabel)
     {
