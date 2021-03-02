@@ -15,6 +15,8 @@ public class SysArticleOnLabelServiceImpl implements ISysArticleOnLabelService {
 
 
 
+
+
     @Override
     public int insertSysArticleOnLabel(SysArticleOnLabel sysArticleOnLabel)
     {
